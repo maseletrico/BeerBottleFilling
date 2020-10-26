@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Beer Bottle Filling</string>
+    <string name="deviceSupportBlueToothMessage">Este dispositivo não suporta BlueTooth!!</string>
+</resources>
