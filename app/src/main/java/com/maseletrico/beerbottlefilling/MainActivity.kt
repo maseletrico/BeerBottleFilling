@@ -6,23 +6,42 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PairedAdapter.OnItemClickListener {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private lateinit var adapter: PairedAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        adapter = PairedAdapter(this,this)
+
+        rvPairedList.layoutManager = LinearLayoutManager(this)
+        rvPairedList.adapter = adapter
+
         if(isBlueToothAdapter()){
             startBlueTooth()
-            var listOfDevices = ArrayList<Pair<String,String>>()
-            //val listOfDevices = ArrayList<Pair<String,String>>()
-            listOfDevices = findPairedDevices()
+
+            adapter.setListData(findPairedDevices())
+            adapter.notifyDataSetChanged()
+
+            //AcceptThread().run()
         }else{
             Toast.makeText(this,getString(R.string.deviceSupportBlueToothMessage),Toast.LENGTH_LONG).show()
         }
     }
+
+
 
     private inner class AcceptThread : Thread() {
         private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
@@ -41,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                     null
                 }
                 socket?.also {
-                    manageMyConnectedSocket(it)
+                    //manageMyConnectedSocket(it)
                     mmServerSocket?.close()
                     shouldLoop = false
                 }
@@ -58,8 +77,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onItemClick(position: Int, bluToothName: String) {
+        super.onItemClick(position, bluToothName)
+        Log.i(TAG,bluToothName)
+    }
+
     companion object{
 
+        private const val TAG = "BLUETOOTH_TAG"
         // SPP UUID service - this should work for most devices
         private val MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     }
