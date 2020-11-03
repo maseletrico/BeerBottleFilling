@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userInterface.BottleFillerControlActivity">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Volume:" />
+
+    <TextView
+        android:id="@+id/tvTVolumeValue"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="600" />
+
+    <TextView
+        android:id="@+id/tvTVolume"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/tvTVolumeValue"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="ml" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCO2_InPurge"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/co2_InPurge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfCO2InPurge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="35" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilOutPurge"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/co2_OutPurge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCO2_InPurge"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfOutPurge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPressureTime"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/co2_InPressure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilOutPurge"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfPressureTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCO2_ResidualTime"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/co2_outPosFill"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPressureTime"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfCO2_ResidualTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBottleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/bottleType"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginEnd="@dimen/marginDefault"
+        style ="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCO2_ResidualTime"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+        <AutoCompleteTextView
+            android:id="@+id/actvBeerBottleType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:clickable="true"
+            android:focusable="true"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+     <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swFillerByTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Envase por tempo"
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilBottleType" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swTimeSetup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time Setup"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        app:layout_constraintStart_toEndOf="@+id/swFillerByTime"
+        app:layout_constraintTop_toBottomOf="@+id/tilBottleType" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFillerTime"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/FillerTime"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swFillerByTime"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfFillerTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="34" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ivBlueTooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_bluetooth_24"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"/>
+
+    <ProgressBar
+        android:id="@+id/pbBlueToothLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+    <TextView
+        android:id="@+id/tvBlueToothName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Envazadora KubMas"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/ivBlueTooth"
+        app:layout_constraintStart_toStartOf="@+id/ivBlueTooth"
+        app:layout_constraintEnd_toEndOf="@+id/ivBlueTooth"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
+    <Button
+        android:id="@+id/btSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:text="Salvar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+
+    <Button
+        android:id="@+id/btNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:text="Novo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>

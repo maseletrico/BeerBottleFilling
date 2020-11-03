@@ -1,10 +1,12 @@
-package com.maseletrico.beerbottlefilling
+package com.maseletrico.beerbottlefilling.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.maseletrico.beerbottlefilling.BlueToothInfo
+import com.maseletrico.beerbottlefilling.R
 import kotlinx.android.synthetic.main.recycler_view_row.view.*
 
 class PairedAdapter(
@@ -51,14 +53,17 @@ class PairedAdapter(
         override fun onClick(p0: View?) {
             val position: Int = adapterPosition
             if(position !=  RecyclerView.NO_POSITION) {
-                listener.onItemClick(position, itemView.tvBlueToothName.text.toString())
+                listener.onItemClick(
+                    itemView.tvBlueToothName.text.toString(),
+                    itemView.tvBlueToothAddress.text.toString()
+                )
             }
 
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int, bluToothName: String) {}
+        fun onItemClick(bluToothName: String, blueToothAddress: String) {}
 
     }
 }
