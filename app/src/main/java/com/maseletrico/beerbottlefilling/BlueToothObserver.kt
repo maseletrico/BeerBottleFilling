@@ -15,10 +15,10 @@ import kotlin.concurrent.thread
 class BlueToothObserver(private val bottleFillerControlActivity: BottleFillerControlActivity) :
     LifecycleObserver {
 
-    lateinit var blueToothAddress: String
+    private lateinit var blueToothAddress: String
 
     private val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
-    lateinit var btSocket: BluetoothSocket
+    private lateinit var btSocket: BluetoothSocket
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun blueToothConnect() {
@@ -38,9 +38,9 @@ class BlueToothObserver(private val bottleFillerControlActivity: BottleFillerCon
                     btSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
                     btSocket.connect()
                     Log.i("beerLog", "finish try Observer")
-                    bottleFillerControlActivity.blueToothConnected(true)
+                    bottleFillerControlActivity.blueToothConnected(true, btSocket)
                 } catch (e: IOException) {
-                    bottleFillerControlActivity.blueToothConnected(false)
+                    bottleFillerControlActivity.blueToothConnected(false, btSocket)
                     Log.i("beerLog", "exception try Observer")
                 }
             }

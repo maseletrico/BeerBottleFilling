@@ -6,22 +6,18 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import com.maseletrico.beerbottlefilling.BlueToothInfo
-import com.maseletrico.beerbottlefilling.userInterface.MainActivity
+import kotlinx.android.synthetic.main.activity_bottle_filler_control.*
 import java.io.IOException
-import java.util.*
-
 
 
 val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 const val REQUEST_ENABLE_BT = 101
 private var blueToothInfo = mutableListOf<BlueToothInfo>()
 private var dataIncomming = ""
-lateinit var  btSocket: BluetoothSocket
+
 
 fun isBlueToothAdapter(): Boolean {
-
     bluetoothAdapter?.let {
         return true
     } ?: return false
@@ -36,41 +32,11 @@ fun Activity.startBlueTooth() {
     }
 }
 
-//fun Activity.blueToothConnect(address: String, uuid: UUID): Boolean {
-//    val device = bluetoothAdapter?.getRemoteDevice(address)
-//    //val btSocket: BluetoothSocket
-//    bluetoothAdapter?.cancelDiscovery()
-//    var socketCreateResponse = false
-//
-//
-//    device?.let {
-//        try {
-//            btSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
-//            btSocket.connect()
-//            socketCreateResponse = true
-//
-////            Log.d(MainActivity.TAG, "Socket creation success")
-////            writeData(btSocket,"CIC")
-////            var data = readData(btSocket)
-////            Log.d(MainActivity.TAG, "Socket data $data")
-////            if(data.contains("CIC_OK",true)){
-////                Log.d(MainActivity.TAG, "Comando CIC Aceito!")
-////            }
-//        } catch (e: IOException) {
-//
-//            Log.d(MainActivity.TAG, "Socket creation failed")
-//            Toast.makeText(applicationContext, "Socket creation failed", Toast.LENGTH_LONG).show()
-//        }
-//    }
-//    return socketCreateResponse
-//}
-
 fun Activity.readData(btSocket: BluetoothSocket): String {
 
     val inputStream = btSocket.inputStream
     val mBuffer: ByteArray = ByteArray(256) // mmBuffer store for the stream
     var numBytes: Int = 0// bytes returned from read()
-    //val handler = Handler()
 
     while (true) {
         numBytes = try {
@@ -84,19 +50,14 @@ fun Activity.readData(btSocket: BluetoothSocket): String {
         }
         // Send the obtained bytes to the UI activity.
         //readMsg.sendToTarget()
-        if(numBytes > 1) {
+        if (numBytes > 1) {
             inputStream.read(mBuffer)
             //val charset = Charsets.UTF_8
-           // println(byteArray.contentToString()) // [72, 101, 108, 108, 111]
+            // println(byteArray.contentToString()) // [72, 101, 108, 108, 111]
             //println(byteArray.toString(charset)) // Hello
         }
         break
-
     }
-//    return handler.obtainMessage(
-//        MESSAGE_READ, numBytes, -1,
-//        mBuffer
-//    ).toString()
     return mBuffer.toString(Charsets.UTF_8)
 }
 
@@ -117,7 +78,6 @@ fun Activity.writeData(btSocket: BluetoothSocket, data: String) {
     } catch (e: IOException) {
         Log.d("BLUETOOTH_TAG", "Bug while sending stuff", e)
     }
-
 }
 
 fun findPairedDevices(): MutableList<BlueToothInfo> {
@@ -128,4 +88,16 @@ fun findPairedDevices(): MutableList<BlueToothInfo> {
         blueToothInfo.add(btList)
     }
     return blueToothInfo
+}
+
+fun Activity.formatCommand(): String{
+
+    val volume = tvTVolumeValue.text
+    val co2InPurge = tfCO2InPurge.text
+    val outPurge = tfOutPurge.text
+    val pressureTime = tfPressureTime.text
+    val co2_ResidualTime = tfCO2_ResidualTime.text
+    val fillerTime = tfFillerTime.text
+
+    return "CIC,$volume,$co2InPurge,$outPurge,$pressureTime,$co2_ResidualTime,$fillerTime"
 }

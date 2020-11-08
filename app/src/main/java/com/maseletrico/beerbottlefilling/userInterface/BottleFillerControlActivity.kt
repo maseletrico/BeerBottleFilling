@@ -1,10 +1,12 @@
 package com.maseletrico.beerbottlefilling.userInterface
 
+import android.bluetooth.BluetoothSocket
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +14,17 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.maseletrico.beerbottlefilling.BlueToothObserver
 import com.maseletrico.beerbottlefilling.R
+import com.maseletrico.beerbottlefilling.extensions.formatCommand
+import com.maseletrico.beerbottlefilling.extensions.readData
+import com.maseletrico.beerbottlefilling.extensions.writeData
 import com.maseletrico.beerbottlefilling.viewModel.FirebaseViewModel
 import kotlinx.android.synthetic.main.activity_bottle_filler_control.*
 
 class BottleFillerControlActivity : AppCompatActivity() {
 
     lateinit var blueToothAddress: String
-    lateinit var blueToothName: String
+    private lateinit var blueToothName: String
+    private lateinit var btSocket: BluetoothSocket
     private val firebaseViewModel by lazy { ViewModelProvider(this).get(FirebaseViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +63,14 @@ class BottleFillerControlActivity : AppCompatActivity() {
 
         observeData()
         Log.i("beerLog", "return observe data")
+
+        btProgram.setOnClickListener {
+            writeData(btSocket, formatCommand())
+            val dataRead = readData(btSocket)
+            Toast.makeText(applicationContext, dataRead, Toast.LENGTH_LONG).show()
+
+
+        }
     }
 
     override fun onResume() {
@@ -113,8 +127,9 @@ class BottleFillerControlActivity : AppCompatActivity() {
         }
     }
 
-    fun blueToothConnected(btConnected: Boolean) {
+    fun blueToothConnected(btConnected: Boolean, socket: BluetoothSocket) {
         blueToothConnectedActions(btConnected)
+        btSocket = socket
     }
 
     override fun onDestroy() {
