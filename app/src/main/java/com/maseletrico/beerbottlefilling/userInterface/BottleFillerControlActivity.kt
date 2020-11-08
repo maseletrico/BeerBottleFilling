@@ -6,29 +6,31 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.maseletrico.beerbottlefilling.BlueToothObserver
 import com.maseletrico.beerbottlefilling.R
-import com.maseletrico.beerbottlefilling.viewModel.BlueToothViewModel
 import com.maseletrico.beerbottlefilling.viewModel.FirebaseViewModel
 import kotlinx.android.synthetic.main.activity_bottle_filler_control.*
 
-class BottleFillerControlActivity : AppCompatActivity(), LifecycleObserver {
+class BottleFillerControlActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(BlueToothViewModel::class.java) }
-    private lateinit var blueToothAddress: String
-    private lateinit var blueToothName: String
-
+    lateinit var blueToothAddress: String
+    lateinit var blueToothName: String
     private val firebaseViewModel by lazy { ViewModelProvider(this).get(FirebaseViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottle_filler_control)
 
+        ivBlueTooth.visibility = View.VISIBLE
+        pbBlueToothLoading.visibility = View.VISIBLE
+        tvBlueToothName.visibility = View.GONE
+
         MobileAds.initialize(this) {}
+        Log.i("beerLog", "onCreate()")
 
         ///mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()
@@ -37,11 +39,10 @@ class BottleFillerControlActivity : AppCompatActivity(), LifecycleObserver {
         intent.getStringExtra("BLUETOOTH_NAME")?.let {
             blueToothName = it
         }
-
         intent.getStringExtra("BLUETOOTH_ADDRESS")?.let {
             blueToothAddress = it
         }
-
+        Log.i("beerLog", "After intent extras")
         swFillerByTime.setOnClickListener {
             if (swFillerByTime.isChecked) {
                 swTimeSetup.visibility = View.VISIBLE
@@ -52,9 +53,15 @@ class BottleFillerControlActivity : AppCompatActivity(), LifecycleObserver {
             }
         }
 
-        blueToothConnectObserver()
+        lifecycle.addObserver(BlueToothObserver(this))
 
         observeData()
+        Log.i("beerLog", "return observe data")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("beerLog", "btActivity on resume")
     }
 
     private fun observeData() {
@@ -69,11 +76,11 @@ class BottleFillerControlActivity : AppCompatActivity(), LifecycleObserver {
                 ArrayAdapter(applicationContext, R.layout.bottle_list_item, bdTitleMutableList)
             (tilBottleType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-            actvBeerBottleType.setOnItemClickListener { adapterView, _, itemIndex, _ ->
+            actvBeerBottleType.setOnItemClickListener { _, _, itemIndex, _ ->
                 adapter.getItem(itemIndex)?.let { clickedItem ->
 
-                    it.forEach {itemFromRepository ->
-                        if(itemFromRepository.firebaseDocument == clickedItem){
+                    it.forEach { itemFromRepository ->
+                        if (itemFromRepository.firebaseDocument == clickedItem) {
                             tvTVolumeValue.text = it[itemIndex].fillingVol
                             tfCO2InPurge.setText(it[itemIndex].co2InPurge)
                             tfOutPurge.setText(it[itemIndex].co2OutPurge)
@@ -84,27 +91,30 @@ class BottleFillerControlActivity : AppCompatActivity(), LifecycleObserver {
                     }
                 }
             }
-
         })
     }
 
-    private fun blueToothConnectObserver() {
-        viewModel.blueToothConnect(blueToothAddress, MainActivity.MY_UUID)
-            .observe(this, Observer { blueToothConnected ->
-                if (blueToothConnected) {
-                    blueToothName?.let {
-                        ivBlueTooth.visibility = View.VISIBLE
-                        pbBlueToothLoading.visibility = View.GONE
-                        tvBlueToothName.text = blueToothName
-                        tvBlueToothName.visibility = View.VISIBLE
-
-                    }
-                } else {
-                    ivBlueTooth.visibility = View.VISIBLE
-                    pbBlueToothLoading.visibility = View.VISIBLE
-                    tvBlueToothName.visibility = View.GONE
-                }
+    private fun blueToothConnectedActions(blueToothConnected: Boolean) {
+        if (blueToothConnected) {
+            blueToothName?.let {
+                //ivBlueTooth.visibility = View.VISIBLE
+                runOnUiThread(Runnable {
+                    pbBlueToothLoading.visibility = View.GONE
+                    tvBlueToothName.text = blueToothName
+                    tvBlueToothName.visibility = View.VISIBLE
+                })
+            }
+        } else {
+            //ivBlueTooth.visibility = View.VISIBLE
+            runOnUiThread(Runnable {
+                pbBlueToothLoading.visibility = View.VISIBLE
+                tvBlueToothName.visibility = View.GONE
             })
+        }
+    }
+
+    fun blueToothConnected(btConnected: Boolean) {
+        blueToothConnectedActions(btConnected)
     }
 
     override fun onDestroy() {

@@ -89,13 +89,6 @@ class MainActivity : AppCompatActivity(), PairedAdapter.OnItemClickListener {
 
         }
         startActivity(intent)
-        //blueToothConnect(blueToothAddress, MY_UUID)
-    }
-
-    companion object{
-
-        const val TAG = "BLUETOOTH_TAG"
-        // SPP UUID service - this should work for most devices
-         val MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+        Log.i("beerLog", "on click")
     }
 }

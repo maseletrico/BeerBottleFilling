@@ -183,10 +183,9 @@
         android:src="@drawable/ic_baseline_bluetooth_24"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime"
+        app:layout_constraintBottom_toTopOf="@+id/tvBlueToothName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adView"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/pbBlueToothLoading"
@@ -194,19 +193,19 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/tvBlueToothName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/tvBlueToothName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginExtraSmall"
         tools:text="Envazadora KubMas"
         android:textColor="@color/colorAccent"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/ivBlueTooth"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintStart_toStartOf="@+id/ivBlueTooth"
         app:layout_constraintEnd_toEndOf="@+id/ivBlueTooth"/>
 
@@ -232,6 +231,17 @@
         android:layout_marginTop="@dimen/marginDefault"
         android:text="Salvar"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+
+    <Button
+        android:id="@+id/btProgram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:text="progamar"
+        app:layout_constraintStart_toEndOf="@+id/btSave"
+        app:layout_constraintEnd_toStartOf="@+id/btNew"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
 
     <Button
