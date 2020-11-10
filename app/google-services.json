@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "356591648774",
+    "firebase_url": "https://beerbottlefiller.firebaseio.com",
+    "project_id": "beerbottlefiller",
+    "storage_bucket": "beerbottlefiller.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356591648774:android:5fc014d98da9cf128f8387",
+        "android_client_info": {
+          "package_name": "com.maseletrico.beerbottlefilling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356591648774-2k197k7j4pqn3at2fod9n9mn5umv5sv4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maseletrico.beerbottlefilling",
+            "certificate_hash": "0c0b58fd77aa81779e20ca4af6343e028b6dac9c"
+          }
+        },
+        {
+          "client_id": "356591648774-dbg31vmhd774ucuruiam79g9cd8v7i3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlvM1wJLkz_5r8OlsGtH4c48Wa-5CseQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356591648774-dbg31vmhd774ucuruiam79g9cd8v7i3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

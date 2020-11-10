@@ -1,4 +1,15 @@
 <resources>
-    <string name="app_name">Beer Bottle Filling</string>
+    <string name="app_name">Envasadora de Cerveja</string>
     <string name="deviceSupportBlueToothMessage">Este dispositivo não suporta BlueTooth!!</string>
+    <string name="co2_InPurge">Entrada de CO2 para purga O2"</string>
+    <string name="volume">Volume em ml do líquido a ser envasado"</string>
+    <string name="co2_OutPurge">Saida de CO2 para purga de O2"</string>
+    <string name="co2_InPressure">Entrada de CO2 para pressurizar garrafa"</string>
+    <string name="co2_outPosFill">Saída de CO2 residual"</string>
+    <string name="bottleType">Tipo de garrafa"</string>
+    <string name="FillerTime">Tempo de envase</string>
+    <string name="interval">Intervalo entre passos</string>
+    <string name="firebaseUpdateSuccess">Arquivo editado com sucesso</string>
+    <string name="firebaseUpdateUnsuccessful">Erro ao salvar arquivo</string>
+
 </resources>
