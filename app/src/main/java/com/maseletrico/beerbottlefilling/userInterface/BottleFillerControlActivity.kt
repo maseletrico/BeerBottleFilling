@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.maseletrico.beerbottlefilling.BlueToothObserver
 import com.maseletrico.beerbottlefilling.R
 import com.maseletrico.beerbottlefilling.extensions.formatCommand
@@ -26,6 +28,7 @@ class BottleFillerControlActivity : AppCompatActivity() {
     private lateinit var blueToothName: String
     private lateinit var btSocket: BluetoothSocket
     private val firebaseViewModel by lazy { ViewModelProvider(this).get(FirebaseViewModel::class.java) }
+    private var currentDocument: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,10 @@ class BottleFillerControlActivity : AppCompatActivity() {
         ivBlueTooth.visibility = View.VISIBLE
         pbBlueToothLoading.visibility = View.VISIBLE
         tvBlueToothName.visibility = View.GONE
+        btProgram.isEnabled = false
+        btSave.isEnabled = false
+        btNew.isEnabled = false
+
 
         MobileAds.initialize(this) {}
         Log.i("beerLog", "onCreate()")
@@ -68,8 +75,29 @@ class BottleFillerControlActivity : AppCompatActivity() {
             writeData(btSocket, formatCommand())
             val dataRead = readData(btSocket)
             Toast.makeText(applicationContext, dataRead, Toast.LENGTH_LONG).show()
+        }
 
-
+        firebaseViewModel.updateSuccess.observe(this, Observer { firebaseUpdated ->
+            when {
+                firebaseUpdated ->
+                    Toast.makeText(this, R.string.firebaseUpdateSuccess,Toast.LENGTH_LONG).show()
+                else ->
+                     Toast.makeText(this, R.string.firebaseUpdateUnsuccessful,Toast.LENGTH_LONG).show()
+            }
+            pbSave.visibility = View.GONE
+        })
+        btSave.setOnClickListener {
+            pbSave.visibility = View.VISIBLE
+            firebaseViewModel.saveFillingTimes(
+                tfCO2InPurge.text.toString(),
+                tfPressureTime.text.toString(),
+                tfCO2_ResidualTime.text.toString(),
+                tfOutPurge.text.toString(),
+                tfFillerTime.text.toString(),
+                tfVolume.text.toString(),
+                tfInterval.text.toString(),
+                currentDocument
+            )
         }
     }
 
@@ -92,15 +120,19 @@ class BottleFillerControlActivity : AppCompatActivity() {
 
             actvBeerBottleType.setOnItemClickListener { _, _, itemIndex, _ ->
                 adapter.getItem(itemIndex)?.let { clickedItem ->
-
+                    btProgram.isEnabled = true
+                    btSave.isEnabled = true
+                    btNew.isEnabled = true
+                    currentDocument = clickedItem
                     it.forEach { itemFromRepository ->
                         if (itemFromRepository.firebaseDocument == clickedItem) {
-                            tvTVolumeValue.text = it[itemIndex].fillingVol
+                            tfVolume.setText(it[itemIndex].fillingVol)
                             tfCO2InPurge.setText(it[itemIndex].co2InPurge)
                             tfOutPurge.setText(it[itemIndex].co2OutPurge)
                             tfPressureTime.setText(it[itemIndex].co2Pressure)
                             tfCO2_ResidualTime.setText(it[itemIndex].co2Residual)
                             tfFillerTime.setText(it[itemIndex].fillingTime)
+                            tfInterval.setText(it[itemIndex].interval)
                         }
                     }
                 }

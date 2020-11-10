@@ -49,12 +49,8 @@ fun Activity.readData(btSocket: BluetoothSocket): String {
             break
         }
         // Send the obtained bytes to the UI activity.
-        //readMsg.sendToTarget()
         if (numBytes > 1) {
             inputStream.read(mBuffer)
-            //val charset = Charsets.UTF_8
-            // println(byteArray.contentToString()) // [72, 101, 108, 108, 111]
-            //println(byteArray.toString(charset)) // Hello
         }
         break
     }
@@ -92,12 +88,13 @@ fun findPairedDevices(): MutableList<BlueToothInfo> {
 
 fun Activity.formatCommand(): String{
 
-    val volume = tvTVolumeValue.text
+    val volume = tfVolume.text
     val co2InPurge = tfCO2InPurge.text
     val outPurge = tfOutPurge.text
     val pressureTime = tfPressureTime.text
-    val co2_ResidualTime = tfCO2_ResidualTime.text
+    val co2ResidualTime = tfCO2_ResidualTime.text
     val fillerTime = tfFillerTime.text
+    val interval = tfInterval.text
 
-    return "CIC,$volume,$co2InPurge,$outPurge,$pressureTime,$co2_ResidualTime,$fillerTime"
+    return "CIC,$volume,$co2InPurge,$outPurge,$pressureTime,$co2ResidualTime,$fillerTime,$interval"
 }

@@ -22,9 +22,7 @@
     <style name="EditFieldMargin">
         <item name="android:layout_marginStart">@dimen/marginDefault</item>
         <item name="android:layout_marginEnd">@dimen/marginDefault</item>
-        <item name="android:layout_marginTop">@dimen/marginDefault</item>
+        <item name="android:layout_marginTop">@dimen/marginSmall</item>
     </style>
-
-
 
 </resources>

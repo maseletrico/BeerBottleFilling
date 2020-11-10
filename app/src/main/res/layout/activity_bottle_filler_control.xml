@@ -6,37 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".userInterface.BottleFillerControlActivity">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/TextTitle"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiVolume"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginDefault"
-        android:textColor="@color/colorAccent"
+        android:hint="@string/volume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Volume:" />
+        app:startIconDrawable="@drawable/ic_bottle">
 
-    <TextView
-        android:id="@+id/tvTVolumeValue"
-        style="@style/TextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginDefault"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@+id/tvTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="600" />
-
-    <TextView
-        android:id="@+id/tvTVolume"
-        style="@style/TextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@+id/tvTVolumeValue"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="ml" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfVolume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="350" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCO2_InPurge"
@@ -45,7 +31,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/co2_InPurge"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tiVolume"
         app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -116,12 +102,12 @@
         android:layout_height="wrap_content"
         android:hint="@string/bottleType"
         android:layout_marginStart="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginSmall"
         android:layout_marginEnd="@dimen/marginDefault"
         style ="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilCO2_ResidualTime"
-        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+        app:startIconDrawable="@drawable/ic_bottle">
         <AutoCompleteTextView
             android:id="@+id/actvBeerBottleType"
             android:layout_width="match_parent"
@@ -132,6 +118,23 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiInterval"
+        style="@style/EditFieldMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/interval"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilBottleType"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfInterval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:text="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
      <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swFillerByTime"
         android:layout_width="wrap_content"
@@ -139,9 +142,8 @@
         android:text="Envase por tempo"
         android:textColor="@color/colorAccent"
         android:layout_marginStart="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilBottleType" />
+        app:layout_constraintTop_toBottomOf="@+id/tiInterval" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swTimeSetup"
@@ -152,9 +154,8 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:layout_marginStart="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
         app:layout_constraintStart_toEndOf="@+id/swFillerByTime"
-        app:layout_constraintTop_toBottomOf="@+id/tilBottleType" />
+        app:layout_constraintTop_toBottomOf="@+id/tiInterval" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilFillerTime"
@@ -180,34 +181,34 @@
         android:id="@+id/ivBlueTooth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginExtraSmall"
+        android:layout_marginEnd="@dimen/marginXlarge"
         android:src="@drawable/ic_baseline_bluetooth_24"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/tvBlueToothName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiInterval"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/pbBlueToothLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginDefault"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/tvBlueToothName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tiInterval"
+        app:layout_constraintEnd_toEndOf="parent" />
     <TextView
         android:id="@+id/tvBlueToothName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marginExtraSmall"
+        android:layout_marginEnd="@dimen/marginDefault"
         tools:text="Envazadora KubMas"
         android:textColor="@color/colorAccent"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintStart_toStartOf="@+id/ivBlueTooth"
-        app:layout_constraintEnd_toEndOf="@+id/ivBlueTooth"/>
+        app:layout_constraintTop_toBottomOf="@+id/ivBlueTooth"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -223,33 +224,59 @@
 
     </com.google.android.gms.ads.AdView>
 
+    <ProgressBar
+        android:id="@+id/pbSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginDefault"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="10dp"
+        app:layout_constraintTop_toTopOf="@+id/btSave"
+        app:layout_constraintStart_toStartOf="@+id/btSave"
+        app:layout_constraintEnd_toEndOf="@+id/btSave"
+        app:layout_constraintBottom_toBottomOf="@+id/btSave"/>
     <Button
         android:id="@+id/btSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginBottom="@dimen/marginSmall"
         android:text="Salvar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
 
+    <ProgressBar
+        android:id="@+id/pbProgram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginDefault"
+        android:elevation="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="@+id/btProgram"
+        app:layout_constraintStart_toStartOf="@+id/btProgram"
+        app:layout_constraintEnd_toEndOf="@+id/btProgram"
+        app:layout_constraintBottom_toBottomOf="@+id/btProgram"/>
     <Button
         android:id="@+id/btProgram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginBottom="@dimen/marginSmall"
         android:text="progamar"
         app:layout_constraintStart_toEndOf="@+id/btSave"
         app:layout_constraintEnd_toStartOf="@+id/btNew"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
+
+
 
     <Button
         android:id="@+id/btNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/marginDefault"
-        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginBottom="@dimen/marginSmall"
         android:text="Novo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />

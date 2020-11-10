@@ -23,6 +23,7 @@ class Repository {
                     val co2Residual = document.getString("co2Residual")
                     val fillingTime = document.getString("fillingTime")
                     val fillingVol = document.getString("fillingVol")
+                    val interval = document.getString("interval")
 
                     val bottleFillerTimes = FillingTimes(
                         document.id,
@@ -31,7 +32,8 @@ class Repository {
                         co2Pressure,
                         co2Residual,
                         fillingTime,
-                        fillingVol
+                        fillingVol,
+                        interval
                     )
                     listData.add(bottleFillerTimes)
                 }
