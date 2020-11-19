@@ -12,10 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.maseletrico.beerbottlefilling.BlueToothObserver
 import com.maseletrico.beerbottlefilling.R
+import com.maseletrico.beerbottlefilling.constants.Const
+import com.maseletrico.beerbottlefilling.extensions.cleanCommand
 import com.maseletrico.beerbottlefilling.extensions.formatCommand
 import com.maseletrico.beerbottlefilling.extensions.readData
 import com.maseletrico.beerbottlefilling.extensions.writeData
@@ -39,7 +39,7 @@ class BottleFillerControlActivity : AppCompatActivity() {
         tvBlueToothName.visibility = View.GONE
         btProgram.isEnabled = false
         btSave.isEnabled = false
-        btNew.isEnabled = false
+        btClean.isEnabled = false
 
 
         MobileAds.initialize(this) {}
@@ -99,6 +99,17 @@ class BottleFillerControlActivity : AppCompatActivity() {
                 currentDocument
             )
         }
+        btClean.setOnClickListener {
+            pbClean.visibility = View.VISIBLE
+            writeData(btSocket,cleanCommand())
+            val dataRead = readData(btSocket)
+            pbClean.visibility = View.GONE
+            if(dataRead.contains(Const.CleanCommandOk)){
+                Toast.makeText(applicationContext, dataRead, Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(applicationContext, "Error Sending Command!!", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onResume() {
@@ -122,11 +133,11 @@ class BottleFillerControlActivity : AppCompatActivity() {
                 adapter.getItem(itemIndex)?.let { clickedItem ->
                     btProgram.isEnabled = true
                     btSave.isEnabled = true
-                    btNew.isEnabled = true
+                    //btClean.isEnabled = true
                     currentDocument = clickedItem
                     it.forEach { itemFromRepository ->
                         if (itemFromRepository.firebaseDocument == clickedItem) {
-                            tfVolume.setText(it[itemIndex].fillingVol)
+                            tfVolume.setText(it[itemIndex].fillingVolume)
                             tfCO2InPurge.setText(it[itemIndex].co2InPurge)
                             tfOutPurge.setText(it[itemIndex].co2OutPurge)
                             tfPressureTime.setText(it[itemIndex].co2Pressure)
@@ -148,6 +159,7 @@ class BottleFillerControlActivity : AppCompatActivity() {
                     pbBlueToothLoading.visibility = View.GONE
                     tvBlueToothName.text = blueToothName
                     tvBlueToothName.visibility = View.VISIBLE
+                    btClean.isEnabled = true
                 })
             }
         } else {

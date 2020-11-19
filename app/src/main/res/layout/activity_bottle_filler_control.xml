@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".userInterface.BottleFillerControlActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiVolume"
         style="@style/EditFieldMargin"
@@ -244,6 +248,7 @@
         android:layout_marginBottom="@dimen/marginSmall"
         android:text="Salvar"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
 
     <ProgressBar
@@ -266,18 +271,30 @@
         android:layout_marginBottom="@dimen/marginSmall"
         android:text="progamar"
         app:layout_constraintStart_toEndOf="@+id/btSave"
-        app:layout_constraintEnd_toStartOf="@+id/btNew"
+        app:layout_constraintEnd_toStartOf="@+id/btClean"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
 
-
+        <ProgressBar
+            android:id="@+id/pbClean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/marginDefault"
+            android:elevation="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="@+id/btClean"
+            app:layout_constraintStart_toStartOf="@+id/btClean"
+            app:layout_constraintEnd_toEndOf="@+id/btClean"
+            app:layout_constraintBottom_toBottomOf="@+id/btClean"/>
 
     <Button
-        android:id="@+id/btNew"
+        android:id="@+id/btClean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/marginDefault"
         android:layout_marginBottom="@dimen/marginSmall"
-        android:text="Novo"
+        android:text="@string/buttonSanitizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilFillerTime" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -13,20 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".userInterface.AuthActivity">
+        <activity android:name=".userInterface.AuthActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".userInterface.BottleFillerControlActivity" />
-        <activity android:name=".userInterface.MainActivity">
+        <activity android:name=".userInterface.BottleFillerControlActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userInterface.MainActivity"
+            android:screenOrientation="portrait">
 
         </activity> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-8403593707199442~8914065476" />
     </application>
 
 </manifest>

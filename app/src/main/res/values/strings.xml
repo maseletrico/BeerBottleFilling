@@ -11,5 +11,8 @@
     <string name="interval">Intervalo entre passos</string>
     <string name="firebaseUpdateSuccess">Arquivo editado com sucesso</string>
     <string name="firebaseUpdateUnsuccessful">Erro ao salvar arquivo</string>
+    <string name="buttonSanitizar">Sanitizar</string>
+    <string name="buttonProgamar">progamar</string>
+    <string name="buttonSave">Salvar</string>
 
 </resources>

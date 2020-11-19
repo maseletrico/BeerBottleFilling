@@ -7,6 +7,6 @@ data class FillingTimes (
     val co2Pressure: String?,
     val co2Residual: String?,
     val fillingTime: String?,
-    val fillingVol: String?,
+    val fillingVolume: String?,
     val interval: String?
 )
