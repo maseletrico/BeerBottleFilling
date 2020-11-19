@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,7 +39,7 @@ class AuthActivity : AppCompatActivity() {
 
         // Build a GoogleSignInClient with the options specified by gso.
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        signIn()
+        //signIn()
 
         sign_in_button.setOnClickListener {
             when (it.id) {
@@ -51,6 +52,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
+        progress_Bar_Auth.visibility = View.VISIBLE
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -74,6 +76,7 @@ class AuthActivity : AppCompatActivity() {
 
     private fun updateUI(account: FirebaseUser?) {
         account?.let {
+            progress_Bar_Auth.visibility = View.GONE
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, it.displayName)
             }

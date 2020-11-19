@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "356591648774-2k197k7j4pqn3at2fod9n9mn5umv5sv4.apps.googleusercontent.com",
+          "client_id": "356591648774-jtgad31jjj72eu17tr9ho9jnmis1vtsm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.maseletrico.beerbottlefilling",
-            "certificate_hash": "0c0b58fd77aa81779e20ca4af6343e028b6dac9c"
+            "certificate_hash": "7b57b9769c6739af82eb8a7c5762f621cff186c7"
           }
         },
         {

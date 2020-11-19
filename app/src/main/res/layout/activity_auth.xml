@@ -16,4 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress_Bar_Auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_in_button"
+        app:layout_constraintStart_toStartOf="@+id/sign_in_button"
+        app:layout_constraintEnd_toEndOf="@+id/sign_in_button"
+        app:layout_constraintTop_toTopOf="@+id/sign_in_button"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

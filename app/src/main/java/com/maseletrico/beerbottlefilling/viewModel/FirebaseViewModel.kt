@@ -32,7 +32,7 @@ class FirebaseViewModel : BaseViewModel() {
     ): MutableLiveData<Boolean> {
         // Add a new document with a generated ID
         val firebase =
-            FirebaseFirestore.getInstance()//.collection("bottleFillerSetups").orderBy("fillingVol").get()
+            FirebaseFirestore.getInstance()//.collection("bottleFillerSetups").orderBy("fillingVolume").get()
 
         //DocumentReference ref = db.collection("user_details").document();
         //String id = ref.getId();

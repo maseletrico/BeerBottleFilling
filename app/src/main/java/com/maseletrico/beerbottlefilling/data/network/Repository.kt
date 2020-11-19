@@ -1,6 +1,5 @@
 package com.maseletrico.beerbottlefilling.data.network
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,7 +10,7 @@ class Repository {
     fun getFillingTimes(): LiveData<MutableList<FillingTimes>> {
         val mutableData = MutableLiveData<MutableList<FillingTimes>>()
 
-        FirebaseFirestore.getInstance().collection("bottleFillerSetups").orderBy("fillingVol").get()
+        FirebaseFirestore.getInstance().collection("bottleFillerSetups").orderBy("fillingVolume").get()
             .addOnSuccessListener { result ->
 
                 val listData = mutableListOf<FillingTimes>()
@@ -22,7 +21,7 @@ class Repository {
                     val co2Pressure = document.getString("co2Pressure")
                     val co2Residual = document.getString("co2Residual")
                     val fillingTime = document.getString("fillingTime")
-                    val fillingVol = document.getString("fillingVol")
+                    val fillingVolume = document.getString("fillingVolume")
                     val interval = document.getString("interval")
 
                     val bottleFillerTimes = FillingTimes(
@@ -32,7 +31,7 @@ class Repository {
                         co2Pressure,
                         co2Residual,
                         fillingTime,
-                        fillingVol,
+                        fillingVolume,
                         interval
                     )
                     listData.add(bottleFillerTimes)

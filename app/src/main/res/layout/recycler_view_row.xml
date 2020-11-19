@@ -13,13 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="BlueTooth name"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/tvBlueToothAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BlueTooth Address"
+        tools:text="BlueTooth Address"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBlueToothName" />
 

@@ -98,3 +98,7 @@ fun Activity.formatCommand(): String{
 
     return "CIC,$volume,$co2InPurge,$outPurge,$pressureTime,$co2ResidualTime,$fillerTime,$interval"
 }
+
+fun Activity.cleanCommand(): String{
+    return "CLN"
+}

@@ -10,5 +10,6 @@ class Const {
         val MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
         const val fireStoreCollection = "bottleFillerSetups"
         const val TAG = "beerLog"
+        const val CleanCommandOk = "CLEAN OK"
     }
 }
